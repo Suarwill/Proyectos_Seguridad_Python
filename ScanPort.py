@@ -1,53 +1,63 @@
-# Escaneador de puerto por IP, formato rápido o completo
-
 import socket
 import time
+import datetime
 
-def _init_ ():
-    print("¿Desea realizar un scan rapido (r) o completo (c) ?")
+def _init_():
+    print("¿Desea realizar un escaneo rápido (r) o completo (c)?")
 
-    userOption = input("(r) ó (c): ")
+    user_option = input("(r) ó (c): ")
 
     host = socket.gethostname()
     mi_ip = socket.gethostbyname(host)
 
     print(f"Tu dirección IP es: {mi_ip}")
 
-    ip =  input("Ingrese el IP a escanear: ") #"43.33.32.156"
+    ip = input("Ingrese el IP a escanear: ")
     latencia = int(input("Indique tiempo de espera en segundos (se recomienda 3): "))
 
-    if userOption == "c":
-        scanCompleto(ip,latencia)
-    elif userOption == "r":
-        scanRapido(ip,latencia)
+    if user_option == "c":
+        scanCompleto(ip, latencia)
+    elif user_option == "r":
+        scanRapido(ip, latencia)
     else:
-        print("Elija una opcion válida.")
+        print("Elija una opción válida.")
 
-def scanCompleto (ip,latencia):
+def guardar_resultados(ip, puertos_abiertos):
+    timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
+    nombre_archivo = f"resultados_{ip}_{timestamp}.txt"
+
+    with open(nombre_archivo, "w") as file:
+        file.write(f"Resultados del escaneo para la IP: {ip}\n")
+        file.write("Puertos abiertos:\n")
+        for puerto in puertos_abiertos:
+            file.write(f"{puerto}\n")
+
+def scanCompleto(ip, latencia):
     puertosAbiertos = []
-    for puerto in range (1,65535):
+    for puerto in range(1, 65536):
         puertoEscaneado = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         puertoEscaneado.settimeout(latencia)
 
         resultado = puertoEscaneado.connect_ex((ip, puerto))
 
         if resultado == 0:
-            print("Puerto Abierto: " , puerto)
+            print("Puerto Abierto: ", puerto)
             puertosAbiertos.append(puerto)
-            
+
         puertoEscaneado.close()
         time.sleep(0.1)
 
         if puerto % 100 == 0:
             progreso = str(puerto * 0.001525)
-            print ("Escaneado " + progreso + "%")
-        if puerto >= 65535:
-            print("Escaneados todos los puertos")
-            print("En el IP: ",ip)
-            print("Los puertos encontrados son: ")
-            print(puertosAbiertos)
+            print("Escaneado " + progreso + "%")
 
-def scanRapido (ip,latencia):
+    guardar_resultados(ip, puertosAbiertos)
+    print("Escaneados todos los puertos")
+    print("En el IP: ", ip)
+    print("Los puertos encontrados son: ")
+    print(puertosAbiertos)
+
+def scanRapido(ip, latencia):
     puertosComunes = [
     21, 22, 23, 25, 53, 80, 110, 123, 137, 138, 139, 143, 161, 194, 389, 443,
     445, 465, 514, 515, 548, 587, 631, 636, 993, 995, 1080, 1433, 1521, 1723,
@@ -60,9 +70,10 @@ def scanRapido (ip,latencia):
     65150, 65500, 65501, 65502, 65503, 65504, 65505, 65506, 65507, 65508,
     65509, 65510, 65511, 65512, 65513, 65514, 65515, 65516, 65517, 65518,
     65519, 65520, 65521, 65522, 65523, 65524, 65525, 65526, 65527, 65528,
-    65529, 65530, 65531, 65532, 65533, 65534, 65535 ]
+    65529, 65530, 65531, 65532, 65533, 65534, 65535 
+    ]
     puertosAbiertos = []
-    
+
     for puerto in puertosComunes:
         puertoEscaneado = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         puertoEscaneado.settimeout(latencia)
@@ -70,16 +81,16 @@ def scanRapido (ip,latencia):
         resultado = puertoEscaneado.connect_ex((ip, puerto))
 
         if resultado == 0:
-            print("Puerto Abierto ---> : " , puerto)
+            print("Puerto Abierto ---> : ", puerto)
             puertosAbiertos.append(puerto)
-            
+
         puertoEscaneado.close()
         time.sleep(0.1)
-        
-        if puerto >= 65535:
-            print("Escaneados todos los puertos")
-            print("En el IP: ",ip)
-            print("Los puertos encontrados son: ")
-            print(puertosAbiertos)
+
+    guardar_resultados(ip, puertosAbiertos)
+    print("Escaneados todos los puertos")
+    print("En el IP: ", ip)
+    print("Los puertos encontrados son: ")
+    print(puertosAbiertos)
 
 _init_ = _init_()
