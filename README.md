@@ -12,7 +12,7 @@ Este sencillo script en Python genera contraseñas aleatorias de la longitud esp
 
 **Ejemplo de uso:**
 
-```bash
+bash
 python generador_contraseñas.py
 
 # Escaneador de Puertos por IP
@@ -28,5 +28,5 @@ Este proyecto de Python es un escaneador de puertos que permite al usuario elegi
 
 **Ejemplo de uso:**
 
-```bash
+bash
 python escaneador_puertos.py
