@@ -1,8 +1,10 @@
-# Generador de Contraseñas Aleatorias
+# Proyectos Python
+
+## Generador de Contraseñas Aleatorias
 
 Este sencillo script en Python genera contraseñas aleatorias de la longitud especificada por el usuario. Utiliza caracteres alfanuméricos y de puntuación para crear contraseñas robustas y seguras.
 
-## Uso
+### Uso
 
 1. Ejecuta el script en un entorno de Python.
 2. Ingresa la longitud deseada para la contraseña cuando se solicite.
@@ -13,10 +15,6 @@ Este sencillo script en Python genera contraseñas aleatorias de la longitud esp
 ```bash
 python generador_contraseñas.py
 
-
-#### Escaneador de Puertos por IP
-
-```markdown
 # Escaneador de Puertos por IP
 
 Este proyecto de Python es un escaneador de puertos que permite al usuario elegir entre un escaneo rápido o completo de una dirección IP especificada. Proporciona información sobre los puertos abiertos y realiza un seguimiento del progreso durante el escaneo.
