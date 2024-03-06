@@ -19,5 +19,6 @@ Este proyecto de Python es un escaneador de puertos que permite al usuario elegi
 
 1. Ejecuta el script en un entorno de Python.
 2. Selecciona entre un escaneo rápido (r) o completo (c) cuando se solicite.
-3. Tomará la IP del archivo "Lista IP.txt" e solicitará ingresar el tiempo de espera en segundos.
+3. Tomará la IP del archivo "Lista IP.txt" y solicitará ingresar el tiempo de espera en segundos.
 4. El script mostrará los puertos abiertos y el progreso del escaneo.
+5. Se guardará los resultados en documento para su posterior análisis.
