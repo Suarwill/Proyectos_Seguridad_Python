@@ -12,15 +12,19 @@ def _init_():
 
     print(f"Tu dirección IP es: {mi_ip}")
 
-    ip = input("Ingrese el IP a escanear: ")
-    latencia = int(input("Indique tiempo de espera en segundos (se recomienda 3): "))
+    # Leer las IP's desde el archivo "Lista IP"
+    with open("Lista IP.txt", "r") as file:
+        ips = file.read().splitlines()
 
-    if user_option == "c":
-        scanCompleto(ip, latencia)
-    elif user_option == "r":
-        scanRapido(ip, latencia)
-    else:
-        print("Elija una opción válida.")
+    for ip in ips:
+        latencia = int(input(f"Indique tiempo de espera en segundos para la IP {ip} (se recomienda 3): "))
+
+        if user_option == "c":
+            scanCompleto(ip, latencia)
+        elif user_option == "r":
+            scanRapido(ip, latencia)
+        else:
+            print("Elija una opción válida.")
 
 def guardar_resultados(ip, puertos_abiertos):
     timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
