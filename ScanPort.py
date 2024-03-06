@@ -48,7 +48,7 @@ def scanCompleto(ip, latencia):
         time.sleep(0.1)
 
         if puerto % 100 == 0:
-            progreso = str(puerto * 0.001525)
+            progreso = str(round(puerto * 0.001525 , 2))
             print("Escaneado " + progreso + "%")
 
     guardar_resultados(ip, puertosAbiertos)
