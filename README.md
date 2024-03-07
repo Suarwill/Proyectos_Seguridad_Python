@@ -36,8 +36,6 @@ Este código en Python utiliza la librería hashlib para comparar un hash de con
 
 - **Búsqueda en el Diccionario:** Utiliza un bucle para iterar a través del diccionario y calcular el hash de cada contraseña. Si encuentra una coincidencia, imprime la contraseña original.
 
-- **Contador de Contraseñas Exploradas:** Se utiliza un contador (`contraseñasExploradas`) para realizar un seguimiento del número de contraseñas exploradas en el diccionario.
-
 - **Resultado:** Al final, el código imprime si la contraseña se encontró en el diccionario y muestra cuántas contraseñas se exploraron en total.
 
 ### Uso Ético y Legal
