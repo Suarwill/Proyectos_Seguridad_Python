@@ -22,3 +22,24 @@ Este proyecto de Python es un escaneador de puertos que permite al usuario elegi
 3. Tomará la IP del archivo "Lista IP.txt" y solicitará ingresar el tiempo de espera en segundos.
 4. El script mostrará los puertos abiertos y el progreso del escaneo.
 5. Se guardará los resultados en documento para su posterior análisis.
+
+
+## Descifrador Hash
+
+Este código en Python utiliza la librería hashlib para comparar un hash de contraseña con las contraseñas en un diccionario y encontrar la coincidencia.
+
+### Descripción del Código
+
+- **Contraseña en Hash:** Se proporciona una contraseña codificada en hash (`contraseñaEnHash`) que se va a comparar con las contraseñas en el diccionario.
+
+- **Diccionario:** El código lee un diccionario de contraseñas desde un archivo de texto (`diccionario.txt`), donde cada línea representa una contraseña.
+
+- **Búsqueda en el Diccionario:** Utiliza un bucle para iterar a través del diccionario y calcular el hash de cada contraseña. Si encuentra una coincidencia, imprime la contraseña original.
+
+- **Contador de Contraseñas Exploradas:** Se utiliza un contador (`contraseñasExploradas`) para realizar un seguimiento del número de contraseñas exploradas en el diccionario.
+
+- **Resultado:** Al final, el código imprime si la contraseña se encontró en el diccionario y muestra cuántas contraseñas se exploraron en total.
+
+### Uso Ético y Legal
+
+Este código debería utilizarse éticamente y legalmente, obteniendo permisos y autorizaciones adecuadas antes de realizar pruebas de seguridad en sistemas.
