@@ -6,7 +6,6 @@ def leerClave():    # La clave debe ser de 16, 24 o 32 bytes según el modo AES 
     with open('key.txt', 'rb') as file:
         key = file.read()
     return key
-
 def leerIV():       # Vector de inicialización (16 bytes)
     with open('IV.txt', 'rb') as file:
         iv = file.read()
@@ -19,20 +18,20 @@ def encriptar(key,iv):
 
     cipher = AES.new(key, AES.MODE_CBC, iv)
     padded_data = pad(data, AES.block_size)
-    archivoEncriptado = archivo[:-4] + '.enc'        # Nombre del archivo encriptado
+    archivoEncriptado = archivo[:-4] + '.enc'        # Nombre del archivo encriptado, borrando extension anterior
 
-    with open(archivoEncriptado, 'wb') as archivoEncriptado:
+    with open(archivoEncriptado, 'wb') as file:
         encrypted_data = cipher.encrypt(padded_data)
-        archivoEncriptado.write(encrypted_data)
+        file.write(encrypted_data)
     
     print("Datos cifrados en: ", archivoEncriptado)
 
     return archivoEncriptado
 
 def desencriptar(key, iv):
-    archivo_encriptado = input("Nombre del archivo a desencriptar: ")
+    archivoEncriptado = str(input("Nombre del archivo a desencriptar: ")) # Archivo a desencriptar
 
-    with open(archivo_encriptado, 'rb') as file:
+    with open(archivoEncriptado, 'rb') as file:
         encrypted_data = file.read()
 
     cipher = AES.new(key, AES.MODE_CBC, iv)
@@ -41,7 +40,7 @@ def desencriptar(key, iv):
     # Eliminar el relleno manualmente
     unpadded_data = decrypted_data[:-decrypted_data[-1]]
 
-    archivo_desencriptado = archivo_encriptado[:-4] + '_desencriptado.txt'  # Eliminar la extensión ".enc"
+    archivo_desencriptado = archivoEncriptado[:-4] + '_desencriptado.txt'  # Eliminar la extensión ".enc"
 
     with open(archivo_desencriptado, 'wb') as file:
         file.write(unpadded_data)
@@ -53,8 +52,8 @@ def __init__():
     key = leerClave()  
     iv = leerIV()
     while (True):
-        print("Este es un archivo para encriptar y desencriptar archivos. \n \n")
-        Opcion = input("Que desea realizar. \n(e)ncriptar o (d)esencriptar:")
+        print("Este es un script para encriptar y desencriptar archivos. \n \n")
+        Opcion = input("Que desea realizar. \n(e)ncriptar o (d)esencriptar: ")
         
         if Opcion == "e":
             encriptar(key,iv)
@@ -65,6 +64,5 @@ def __init__():
         else:
             print("Elija una opcion correcta")
             print("\n"*5)
-
 
 __Init__ = __init__()

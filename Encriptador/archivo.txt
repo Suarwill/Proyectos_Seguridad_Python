@@ -1,1 +1,3 @@
-criptando archivos KZR
+Este archivo es para prueba de encriptado.
+Fecha actual 13 de Marzo de 2024.
+Fin.
