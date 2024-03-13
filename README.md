@@ -41,3 +41,15 @@ Este código en Python utiliza la librería hashlib para comparar un hash de con
 ### Uso Ético y Legal
 
 Este código debería utilizarse éticamente y legalmente, obteniendo permisos y autorizaciones adecuadas antes de realizar pruebas de seguridad en sistemas.
+
+## Encriptador
+
+Script en Python, utilizando la libreria "Cryptodome".
+Con este archivo encriptamos y desencriptamos archivos, la Key la lee del archivo 'key.txt' y el Vector de inicializacion del 'IV.txt'.
+Aun en mejoras, pero tengo un buen avance en esta área.
+
+### Uso
+
+1. Ejecuta el script en un entorno de Python.
+2. Ingresa la opcion Encriptar o Desencriptar.
+3. Pedirá el nombre del archivo a realizar la accion anterior.
