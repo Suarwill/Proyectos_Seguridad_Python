@@ -12,12 +12,12 @@ with open (archivoDiccionario, 'r') as file:
     contraseñaResuelta = ""
     contraseñasExploradas = 0
     # Cada opcion vamos transformando en HASH
-    for contraseña in diccionario:
+    for cadena in diccionario:
         contraseñasExploradas += 1
         # La transformamos en hash y la comparamos con nuestro objetivo HASH buscado.
-        calcularHash = hl.sha256(contraseña.encode()).hexdigest()
+        calcularHash = hl.sha256(cadena.encode()).hexdigest()
         if calcularHash == contraseñaEnHash:
-            contraseñaResuelta = contraseña
+            contraseñaResuelta = cadena
             print("La contraseña es: ", contraseñaResuelta)
             break
         else:
