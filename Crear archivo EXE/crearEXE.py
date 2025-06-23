@@ -1,28 +1,29 @@
 import subprocess
-import sys
 import os
 import time
 import shutil
 
-# Verificar si pyinstaller está instalado
+PYTHON_VERSION = "python3.11"  # usa explícitamente python3.11
+
+# Verificar si pyinstaller está instalado para python3.11
 def instalar_pyinstaller():
+    print("[+] Verificando si PyInstaller está instalado para Python 3.11...")
     try:
-        import PyInstaller  # noqa
-    except ImportError:
-        print("[+] PyInstaller no encontrado. Instalando...")
-        subprocess.check_call([sys.executable, "-m", "pip", "install", "pyinstaller"])
-    else:
+        subprocess.run([PYTHON_VERSION, "-m", "pyinstaller", "--version"], check=True, stdout=subprocess.DEVNULL)
         print("[✓] PyInstaller ya está instalado.")
+    except subprocess.CalledProcessError:
+        print("[+] PyInstaller no encontrado. Instalando para Python 3.11...")
+        subprocess.run([PYTHON_VERSION, "-m", "pip", "install", "--user", "pyinstaller"], check=True)
 
 # Crear el ejecutable
 def crear_ejecutable():
     script_path = os.path.join("base", "main.py")
-    if not os.path.exists(script_path):
+    if not os.path.isfile(script_path):
         print(f"[X] No se encontró el archivo {script_path}")
-        sys.exit(1)
+        exit(1)
 
     print(f"[+] Creando ejecutable desde {script_path} ...")
-    subprocess.run(["pyinstaller", "--onefile", script_path])
+    subprocess.run([PYTHON_VERSION, "-m", "PyInstaller", "--onefile", script_path], check=True)
 
 # Limpiar archivos y carpetas innecesarias
 def limpiar_directorio():
@@ -52,6 +53,7 @@ def limpiar_directorio():
 # Ejecutar todo
 def main():
     print("Iniciando proceso de creación del ejecutable...")
+
     instalar_pyinstaller()
 
     print("[ ] El archivo PY a procesar debe estar en la carpeta 'base'.")
@@ -59,7 +61,8 @@ def main():
     option = input("[?] ¿Continuar? (s/n): ").strip().lower()
     if option != 's':
         print("[X] Proceso cancelado por el usuario.")
-        sys.exit(0)
+        exit(0)
+
     crear_ejecutable()
     limpiar_directorio()
     print("\n[✓] Tarea completada, saliendo en 5 segundos...")
