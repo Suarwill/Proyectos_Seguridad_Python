@@ -1,11 +1,20 @@
-# Generador de contraseñas aleatorias.
-import string
-import random
+import string, random
 
-longitudContraseña = int(input("Ingrese el largo de la contraseña aleatoria: "))
+def generador(largo):
+    caracteres = string.ascii_letters + string.digits + string.punctuation
+    return "".join(random.choices(caracteres, k=largo))
 
-caracteres = string.ascii_letters + string.digits + string.punctuation
+def main():
+    while True:
+        try:
+            largo = int(input("Ingrese el largo de la contraseña aleatoria: "))
+            if largo <= 0:
+                print("La longitud debe ser un número positivo.")
+            else:
+                print("La contraseña aleatoria es:", generador(largo))
+                break
+        except ValueError:
+            print("Por favor, ingrese un número válido.")
 
-contraseña = "".join(random.choice(caracteres) for i in range(longitudContraseña))
-
-print("La contraseña aleatoria es: " + contraseña)
+if __name__ == "__main__":
+    main()
