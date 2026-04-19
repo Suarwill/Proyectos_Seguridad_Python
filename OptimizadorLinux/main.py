@@ -63,6 +63,9 @@ def main():
         print(" 7. [SERVICIOS] ACTIVAR Entorno (Docker/VBox) ahora")
         print(" 8. [ESTADO] Ver RAM, ZRAM y Swap actual")
         print(" 9. [DOCKER] Purge total (Imágenes, Redes y VOLÚMENES)")
+        print(" 12. [SALUD] Chequeo de Temperatura y Frecuencia")
+        print(" 13. [SALUD] Informe detallado de Batería (Diagnóstico)")
+        print(" 14. [SEGURIDAD] Escaneo de sectores dañados (Rápido)")
         print(" 0. Salir")
         
         opcion = input("\nSeleccione una opción: ")
@@ -93,6 +96,13 @@ def main():
                 os.system("free -h && swapon --show && zramctl")
             case "9":
                 docker_purge()
+            case "12":
+                run_command("sensors", "Temperatura del CPU")
+                print("\n[+] Usa la opción 8 (s-tui) para ver la frecuencia en tiempo real.")
+            case "13":
+                run_command("upower -i /org/freedesktop/UPower/devices/battery_BAT0", "Estado real de la batería")
+            case "14":
+                run_command("sudo smartctl -t short /dev/sda", "Iniciando test de sectores (ejecuta en background)")
             case "0":
                 print("Saliendo de Fraustech Toolkit...")
                 break
