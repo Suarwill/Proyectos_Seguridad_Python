@@ -1,19 +1,20 @@
 import os
 import subprocess
 import sys
+import shutil
 
 # --- CONFIGURACIÓN DE DEPENDENCIAS ---
 DEPENDENCIAS = {
     "smartctl": "smartmontools",
     "deborphan": "deborphan",
     "zramctl": "zram-tools",
-    "dmidecode": "dmidecode"
+    "dmidecode": "dmidecode",
+    "docker": "docker.io"
 }
 
 def check_and_install_dependencies():
     print("[*] Verificando dependencias del sistema...")
     for comando, paquete in DEPENDENCIAS.items():
-        import shutil
         if shutil.which(comando) is None:
             print(f"[!] '{comando}' no encontrado. Instalando {paquete}...")
             try:
@@ -37,12 +38,21 @@ def setup_zram():
     subprocess.run(f"echo '{zram_config}' | sudo tee /etc/default/zramswap", shell=True)
     run_command("sudo modprobe zram && sudo systemctl restart zramswap", "Activando ZRAM")
 
+def docker_purge():
+    print("\n--- Limpieza Profunda de Docker ---")
+    status = subprocess.run("systemctl is-active docker", shell=True, capture_output=True, text=True)
+    if status.stdout.strip() == "active":
+        run_command("sudo docker system prune -a --volumes -f", "Eliminando imágenes, contenedores y volúmenes huérfanos")
+    else:
+        print("[!] Docker no está activo. Iniciándolo temporalmente para limpiar...")
+        run_command("sudo systemctl start docker && sudo docker system prune -a --volumes -f && sudo systemctl stop docker", "Limpieza con inicio/cierre temporal")
+
 def main():
     check_and_install_dependencies()
     
     while True:
         print("\n" + "═"*55)
-        print("      FRAUSTECH TOOLKIT v2.0 - OPTIMIZACIÓN KALI")
+        print("      FRAUSTECH TOOLKIT v2.1 - OPTIMIZACIÓN KALI")
         print("═"*55)
         print(" 1. [INFO] Características del Notebook y CPU")
         print(" 2. [INFO] Salud del Disco Duro (S.M.A.R.T.)")
@@ -52,6 +62,7 @@ def main():
         print(" 6. [SERVICIOS] DESACTIVAR carga de Docker/VirtualBox")
         print(" 7. [SERVICIOS] ACTIVAR Entorno (Docker/VBox) ahora")
         print(" 8. [ESTADO] Ver RAM, ZRAM y Swap actual")
+        print(" 9. [DOCKER] Purge total (Imágenes, Redes y VOLÚMENES)")
         print(" 0. Salir")
         
         opcion = input("\nSeleccione una opción: ")
@@ -62,32 +73,26 @@ def main():
                 os.system("lscpu | grep -E 'Model name|CPU\(s\)|Thread'")
                 os.system("sudo dmidecode -s system-product-name")
                 os.system("sudo dmidecode -s system-manufacturer")
-            
             case "2":
                 run_command("sudo smartctl -H /dev/sda", "Verificando salud física del HDD")
-            
             case "3":
                 run_command("sudo apt clean && sudo apt autoremove --purge -y $(deborphan)", "Limpiando paquetes y huérfanos")
                 run_command("rm -rf ~/.cache/*", "Limpiando caché de usuario")
-            
             case "4":
                 run_command("sudo journalctl --vacuum-size=200M", "Reduciendo logs a 200MB")
-            
             case "5":
                 setup_zram()
                 swap_cmd = "echo 'vm.swappiness=10' | sudo tee -a /etc/sysctl.conf && sudo sysctl -p"
                 run_command(swap_cmd, "Configurando Swappiness=10 permanente")
-            
             case "6":
                 servicios = "virtualbox.service docker.service docker.socket containerd.service"
                 run_command(f"sudo systemctl disable {servicios}", "Desactivando servicios del arranque")
-            
             case "7":
                 run_command("sudo systemctl start docker virtualbox", "Iniciando servicios de trabajo")
-            
             case "8":
                 os.system("free -h && swapon --show && zramctl")
-            
+            case "9":
+                docker_purge()
             case "0":
                 print("Saliendo de Fraustech Toolkit...")
                 break
