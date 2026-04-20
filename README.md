@@ -53,3 +53,32 @@ Aun en mejoras, pero tengo un buen avance en esta área.
 1. Ejecuta el script en un entorno de Python.
 2. Ingresa la opcion Encriptar o Desencriptar.
 3. Pedirá el nombre del archivo a realizar la accion anterior.
+
+---
+
+## Pentest Toolkit
+
+Este proyecto es un conjunto de herramientas de pentesting modular basado en consola, desarrollado en Python. Está diseñado para automatizar tareas de reconocimiento y recopilación de información contra uno o varios objetivos de forma centralizada.
+
+### Capacidades
+- **Escaneo de Red**: Implementa Nmap para detección de puertos, servicios y versiones.
+- **Análisis de Subdominios**: Integración con herramientas como Subfinder y Assetfinder.
+- **Auditoría de Seguridad Web**: Detección de tecnologías con Httpx, revisión de `robots.txt` y análisis de cabeceras de seguridad (CSP, HSTS).
+- **Google Dorks**: Generación automatizada de consultas para investigación manual.
+
+## Honeypot Basic
+
+Implementación de un honeypot diseñado para capturar y analizar el comportamiento de atacantes. Utiliza contenedores Docker para simular un sistema vulnerable y desviar tráfico malicioso.
+
+### Características
+- **Redirección Inteligente**: Nginx monitorea intentos fallidos y redirige al atacante a un backend falso tras superar un umbral de 65 intentos.
+- **Análisis de Comportamiento**: El backend falso registra todas las actividades para estudiar el "modus operandi" del atacante.
+- **Gestión Simplificada**: Incluye un script `main.sh` para levantar y detener el entorno rápidamente.
+
+## Herramientas de Soporte y Automatización
+
+- **Instalador para Kali Linux**: Script Bash para automatizar la instalación de dependencias y herramientas esenciales en entornos de auditoría.
+- **Conversión a Ejecutable**: Scripts para transformar herramientas Python en aplicaciones independientes (`.exe` para Windows y `.app` para macOS).
+
+---
+*Nota: Todos los proyectos aquí descritos deben utilizarse exclusivamente con fines éticos y bajo autorización previa.*
